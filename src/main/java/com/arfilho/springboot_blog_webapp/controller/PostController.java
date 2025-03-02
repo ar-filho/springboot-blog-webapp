@@ -24,4 +24,12 @@ public class PostController {
         model.addAttribute("posts", posts);
         return "/admin/posts";
     }
+
+    // handler method to handle new post request
+    @GetMapping("admin/posts/new-post")
+    public String newPostForm(Model model) {
+        PostDto postDto = new PostDto();
+        model.addAttribute("post", postDto);
+        return "admin/create_post";
+    }
 }
