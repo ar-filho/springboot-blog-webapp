@@ -1,5 +1,6 @@
 package com.arfilho.springboot_blog_webapp.controller;
 
+import com.arfilho.springboot_blog_webapp.dto.CommentDto;
 import com.arfilho.springboot_blog_webapp.dto.PostDto;
 import com.arfilho.springboot_blog_webapp.service.PostService;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,9 @@ public class BlogController {
     private String showPost(@PathVariable("postUrl") String postUrl,
                             Model model) {
         PostDto postDto = postService.findPostByUrl(postUrl);
+        CommentDto commentDto = new CommentDto();
         model.addAttribute("post", postDto);
+        model.addAttribute("comment", commentDto);
         return "blog/blog_post";
     }
 
