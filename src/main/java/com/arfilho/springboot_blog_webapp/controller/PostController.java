@@ -1,6 +1,8 @@
 package com.arfilho.springboot_blog_webapp.controller;
 
+import com.arfilho.springboot_blog_webapp.dto.CommentDto;
 import com.arfilho.springboot_blog_webapp.dto.PostDto;
+import com.arfilho.springboot_blog_webapp.service.CommentService;
 import com.arfilho.springboot_blog_webapp.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -14,9 +16,11 @@ import java.util.List;
 public class PostController {
 
     private PostService postService;
+    private CommentService commentService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, CommentService commentService) {
         this.postService = postService;
+        this.commentService = commentService;
     }
 
     // create handler method, GET request and return model and view
@@ -47,6 +51,14 @@ public class PostController {
         postDto.setUrl(getUrl(postDto.getTitle()));
         postService.createPost(postDto);
         return "redirect:/admin/posts";
+    }
+
+    // handler method to handle list comments
+    @GetMapping("/admin/posts/comments")
+    public String postComments(Model model) {
+        List<CommentDto> comments = commentService.findAllComments();
+        model.addAttribute("comments", comments);
+        return "admin/comments";
     }
 
     // handler method to handle edit post request
