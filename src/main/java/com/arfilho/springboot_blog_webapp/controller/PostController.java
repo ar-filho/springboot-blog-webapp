@@ -61,6 +61,15 @@ public class PostController {
         return "admin/comments";
     }
 
+    // handler method to handle dele commit request
+    // @{/admin/posts/comments/{commentId}(commentId=${comment.id})}
+    @GetMapping("/admin/posts/comments/{commentId}")
+    public String deleteComment (@PathVariable("commentId") Long commentId,
+                                 Model model ) {
+        commentService.deleteComment(commentId);
+        return "redirect:/admin/posts/comments";
+    }
+
     // handler method to handle edit post request
     @GetMapping("/admin/posts/{postId}/edit")
     public String editPostForm(@PathVariable("postId") Long postId, Model model) {
