@@ -29,6 +29,11 @@
             <div class="card-header">
                 <h2 class="text-center">Registration</h2>
             </div>
+            <div th:if="${param.success}">
+                <div class="alert alert-info">
+                    <p>Registration was successful!</p>
+                </div>
+            </div>
             <div class="card-body">
                 <form method="post"
                       role="form"
