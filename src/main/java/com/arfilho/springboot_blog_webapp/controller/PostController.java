@@ -56,7 +56,7 @@ public class PostController {
     // handler method to handle list comments
     @GetMapping("/admin/posts/comments")
     public String postComments(Model model) {
-        List<CommentDto> comments = commentService.findAllComments();
+        List<CommentDto> comments = commentService.findCommentsByPost(); //findAllComments();
         model.addAttribute("comments", comments);
         return "admin/comments";
     }
