@@ -1,0 +1,1 @@
+DROP TABLE `myblogapp`.`comments`, `myblogapp`.`posts`, `myblogapp`.`users`, `myblogapp`.`users_roles`;

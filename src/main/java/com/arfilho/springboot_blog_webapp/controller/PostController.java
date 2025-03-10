@@ -4,6 +4,8 @@ import com.arfilho.springboot_blog_webapp.dto.CommentDto;
 import com.arfilho.springboot_blog_webapp.dto.PostDto;
 import com.arfilho.springboot_blog_webapp.service.CommentService;
 import com.arfilho.springboot_blog_webapp.service.PostService;
+import com.arfilho.springboot_blog_webapp.util.ROLE;
+import com.arfilho.springboot_blog_webapp.util.SecurityUtils;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,13 @@ public class PostController {
     // create handler method, GET request and return model and view
     @GetMapping("/admin/posts")
     public String posts(Model model) {
-        List<PostDto> posts = postService.findAllPosts();
+        String role = SecurityUtils.getRole();
+        List<PostDto> posts = null;
+        if(ROLE.ROLE_ADMIN.name().equals(role)) {
+            posts = postService.findAllPosts();
+        } else {
+            posts =  postService.findPostsByUser();
+        }
         model.addAttribute("posts", posts);
         return "/admin/posts";
     }
@@ -56,7 +64,13 @@ public class PostController {
     // handler method to handle list comments
     @GetMapping("/admin/posts/comments")
     public String postComments(Model model) {
-        List<CommentDto> comments = commentService.findAllComments();
+        String role = SecurityUtils.getRole();
+        List<CommentDto> comments = null;
+        if(ROLE.ROLE_ADMIN.name().equals(role)) {
+            comments = commentService.findAllComments();
+        } else {
+            comments =  commentService.findCommentsByPost();
+        }
         model.addAttribute("comments", comments);
         return "admin/comments";
     }

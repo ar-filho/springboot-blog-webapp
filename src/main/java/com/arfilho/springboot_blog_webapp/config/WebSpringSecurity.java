@@ -40,6 +40,7 @@ public class WebSpringSecurity {
                                                         .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAnyRole("ADMIN", "GUEST")
                                                         .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                                                         .requestMatchers(new AntPathRequestMatcher("/post/**")).permitAll()
+                                                        .requestMatchers(new AntPathRequestMatcher("/*/comments")).permitAll()
                                                         .anyRequest().authenticated()
                                 )
                                 .formLogin(form -> form
