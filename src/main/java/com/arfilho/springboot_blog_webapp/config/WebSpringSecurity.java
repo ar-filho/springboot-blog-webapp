@@ -28,6 +28,9 @@ public class WebSpringSecurity {
                                         .defaultSuccessUrl("/admin/posts")
                                         .loginProcessingUrl("/login")
                                         .permitAll()
+                                ).logout(logout -> logout
+                                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                        .permitAll()
                                 );
                     } catch (Exception e) {
                         throw new RuntimeException(e);
